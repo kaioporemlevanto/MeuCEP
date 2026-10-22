@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://android.com"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app1="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
 
     <!-- TOOLBAR SUPERIOR COM BOTÃO VOLTAR -->
@@ -20,16 +20,18 @@
             android:layout_height="24dp"
             android:contentDescription="Voltar para busca"
             android:src="@drawable/outline_arrow_back_24"
-            app:tint="@color/white" />
+            app:tint="@color/white"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:text="@string/app_name"
+            android:paddingLeft="20dp"
             android:textColor="@color/white"
             android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            />
     </androidx.appcompat.widget.Toolbar>
 
     <!-- CONTEÚDO DOS CARDS -->
@@ -38,16 +40,14 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="16dp"
-        app:layout_bottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/toolbarResult">
-
+        app1:layout_constraintTop_toBottomOf="@id/toolbarResult">
         <!-- CARD DA BANDEIRA -->
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="2dp">
+            app1:cardCornerRadius="12dp"
+            app1:cardElevation="2dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -103,7 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="12dp"
-                    android:text="📍 Endereço"
+                    android:text="Endereço"
                     android:textColor="@color/primary"
                     android:textStyle="bold" />
 
@@ -112,6 +112,126 @@
                 <TextView android:id="@+id/txtResultComplement" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
                 <TextView android:id="@+id/txtResultNeighborhood" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
                 <TextView android:id="@+id/txtResultCity" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <!-- CARD INFORMAÇÕES ADICIONAIS -->
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app1:cardCornerRadius="12dp"
+            app1:cardElevation="2dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Cabeçalho do Card -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="12dp">
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Informações adicionais"
+                        android:textColor="@color/primary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <!-- Conteúdo: Dados à esquerda e Mapa à direita -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:orientation="horizontal">
+
+                    <!-- Tabela de Dados -->
+                    <TableLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:stretchColumns="1">
+
+                        <TableRow android:paddingVertical="4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="16dp"
+                                android:text="Região"
+                                android:textColor="@color/text_muted" />
+                            <TextView
+                                android:id="@+id/txtResultRegion"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="16dp"
+                                android:text="Capital"
+                                android:textColor="@color/text_muted" />
+                            <TextView
+                                android:id="@+id/txtResultCapital"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="16dp"
+                                android:text="DDD"
+                                android:textColor="@color/text_muted" />
+                            <TextView
+                                android:id="@+id/txtResultDdd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow android:paddingVertical="4dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingEnd="16dp"
+                                android:text="Código do IBGE"
+                                android:textColor="@color/text_muted" />
+                            <TextView
+                                android:id="@+id/txtResultIbge"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/text_dark"
+                                android:textStyle="bold" />
+                        </TableRow>
+                    </TableLayout>
+
+                    <!-- Imagem do Mapa -->
+                    <ImageView
+                        android:id="@+id/imgMap"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="8dp"
+                        android:scaleType="fitCenter" />
+                    <!-- Defina o src do mapa pelo código ou adicione android:src="@drawable/seu_mapa" -->
+
+                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
