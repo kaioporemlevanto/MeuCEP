@@ -7,11 +7,36 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.meucep.databinding.ActivityMainBinding
 import java.io.Serializable
-
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.meucep.data.CepRepository
+import com.example.meucep.data.ViaCepService
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import com.example.meucep.data.CodanteService
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private val viewModel: CepViewModel by viewModels()
+    private val viewModel: CepViewModel by viewModels {
+        // Retrofit 1: ViaCEP
+        val viaCepRetrofit = Retrofit.Builder()
+            .baseUrl("https://viacep.com.br/ws/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val viaCepService = viaCepRetrofit.create(ViaCepService::class.java)
+
+        // Retrofit 2: Codante (Bandeiras)
+        val codanteRetrofit = Retrofit.Builder()
+            .baseUrl("https://apis.codante.io/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+        val codanteService = codanteRetrofit.create(CodanteService::class.java)
+
+        // Repositório recebe os dois serviços
+        val repository = CepRepository(viaCepService, codanteService)
+
+        CepViewModelFactory(repository)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +70,15 @@ class MainActivity : AppCompatActivity() {
         }
         viewModel.error.observe(this) { errorMessage ->
             Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
+        }
+    }
+    class CepViewModelFactory(private val repository: CepRepository) : ViewModelProvider.Factory {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(CepViewModel::class.java)) {
+                @Suppress("UNCHECKED_CAST")
+                return CepViewModel(repository) as T
+            }
+            throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
 }

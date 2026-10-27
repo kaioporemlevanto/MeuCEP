@@ -18,18 +18,39 @@ class CepViewModel(private val repository: CepRepository) : ViewModel() {
     private val _error = MutableLiveData<String>()
     val error: LiveData<String> = _error
 
+
     fun searchCep(cep: String) {
+        // 1. Limpa a bandeira antiga antes de começar a nova pesquisa
+        _flagUrl.value = ""
+
         viewModelScope.launch {
             try {
                 val response = repository.fetchCep(cep)
                 if (response.isSuccessful && response.body() != null) {
-                    val data = response.body()
-                    _cepData.postValue(data)
+                    val cepData = response.body()!!
 
-                    // API de Bandeiras: Concatena a UF (em letras minúsculas) para obter a imagem
-                    // Exemplo usando o repositório público de bandeiras do Brasil:
-                    val ufLower = data!!.uf.lowercase()
-                    _flagUrl.postValue("https://githubusercontent.com{ufLower}.png")
+                    // 2. Verifica se o ViaCEP retornou um CEP vazio/inexistente
+                    if (cepData.cep.isEmpty()) {
+                        _error.postValue("CEP não encontrado.")
+                        return@launch // Interrompe a função aqui para não abrir a tela
+                    }
+
+                    // 3. Se o CEP for válido, busca a bandeira
+                    try {
+                        val flagsResponse = repository.fetchFlags()
+                        if (flagsResponse.isSuccessful && flagsResponse.body() != null) {
+                            val flags = flagsResponse.body()!!
+                            val estado = flags.find { it.uf.equals(cepData.uf, ignoreCase = true) }
+
+                            estado?.let { _flagUrl.postValue(it.flagUrlRounded) }
+                        }
+                    } catch (e: Exception) {
+                        // Ignora erro da bandeira
+                    }
+
+                    // 4. Só avisa a MainActivity para abrir a tela após tudo estar pronto
+                    _cepData.postValue(cepData)
+
                 } else {
                     _error.postValue("CEP não encontrado.")
                 }

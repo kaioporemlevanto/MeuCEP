@@ -1,5 +1,9 @@
 package com.example.meucep.data
 
-class CepRepository(private val apiService: ViaCepService) {
-    suspend fun fetchCep(cep: String) = apiService.getCepInfo(cep)
+class CepRepository(
+    private val viaCepService: ViaCepService,
+    private val codanteService: CodanteService
+) {
+    suspend fun fetchCep(cep: String) = viaCepService.getCep(cep)
+    suspend fun fetchFlags() = codanteService.getFlags()
 }

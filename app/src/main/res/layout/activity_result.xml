@@ -58,8 +58,8 @@
 
                 <ImageView
                     android:id="@+id/imgStateFlag"
-                    android:layout_width="100dp"
-                    android:layout_height="66dp"
+                    android:layout_width="140dp"
+                    android:layout_height="106dp"
                     android:scaleType="centerCrop" />
 
                 <LinearLayout
@@ -109,7 +109,6 @@
 
                 <TextView android:id="@+id/txtResultCep" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
                 <TextView android:id="@+id/txtResultStreet" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
-                <TextView android:id="@+id/txtResultComplement" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
                 <TextView android:id="@+id/txtResultNeighborhood" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
                 <TextView android:id="@+id/txtResultCity" android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingVertical="4dp" android:textColor="@color/text_dark"/>
             </LinearLayout>
@@ -151,7 +150,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:baselineAligned="false"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    >
 
                     <!-- Tabela de Dados -->
                     <TableLayout
@@ -169,21 +169,6 @@
                                 android:textColor="@color/text_muted" />
                             <TextView
                                 android:id="@+id/txtResultRegion"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:textColor="@color/text_dark"
-                                android:textStyle="bold" />
-                        </TableRow>
-
-                        <TableRow android:paddingVertical="4dp">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingEnd="16dp"
-                                android:text="Capital"
-                                android:textColor="@color/text_muted" />
-                            <TextView
-                                android:id="@+id/txtResultCapital"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:textColor="@color/text_dark"
@@ -224,8 +209,8 @@
                     <!-- Imagem do Mapa -->
                     <ImageView
                         android:id="@+id/imgMap"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
+                        android:layout_width="150dp"
+                        android:layout_height="150dp"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="8dp"
                         android:scaleType="fitCenter" />
